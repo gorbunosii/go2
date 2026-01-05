@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html;
+charset=UTF-8">
+<link rel="stylesheet"
+href="usr/share/git/ReleaseNotes.css">
+</head>
+<body class="details">
+<div class="links">
+<ul>
+<li><a href="https://gitforwindows.org/">homepage</a></li>
+<li><a href="https://gitforwindows.org/faq">faq</a></li>
+<li><a href="https://gitforwindows.org/#contribute">contribute</a></li>
+<li><a href="https://gitforwindows.org/#contribute">bugs</a></li>
+<li><a href="mailto:git@vger.kernel.org">questions</a></li>
+</ul>
+<div id="git-for-windows-logo">
+<div id="left-pane"></div>
+<div id="top-pane"></div>
+<div id="right-pane"></div>
+<div id="bottom-pane"></div>
+<div id="diagonal-pipe"></div>
+<div id="vertical-pipe"></div>
+<div id="top-ball"></div>
+<div id="bottom-ball"></div>
+<div id="right-ball"></div>
+</div>
+</div>
+<div class="content">
+<h1>Git for Windows v2.52.0 Release Notes</h1>
+
+<p>Latest update: November 17th 2025</p>
+
+<h2>Introduction</h2>
+
+<p>These release notes describe issues specific to the Git for Windows release. The release notes covering the history of the core git commands can be found <a href="https://github.com/git/git/tree/HEAD/Documentation/RelNotes">in the Git project</a>.</p>
+
+<p>See <a href="http://git-scm.com/">http://git-scm.com/</a> for further details about Git including ports to other operating systems. Git for Windows is hosted at <a href="https://gitforwindows.org/">https://gitforwindows.org/</a>.</p>
+
+<h1 id="known-issues" class="collapsible">Known issues</h1>
+
+<ul>
+<li>On Windows 10 before 1703, or when Developer Mode is turned off, special permissions are required when cloning repositories with symbolic links, therefore support for symbolic links is disabled by default. Use <code>git clone -c core.symlinks=true &lt;URL&gt;</code> to enable it, see details <a href="https://gitforwindows.org/symbolic-links">here</a>.</li>
+<li>If configured to use Plink, you will have to connect with <a href="http://www.chiark.greenend.org.uk/~sgtatham/putty/">putty</a> first and accept the host key.</li>
+<li>Some console programs, most notably non-MSYS2 Python, PHP, Node and OpenSSL, interact correctly with MinTTY only when called through <code>winpty</code> (e.g. the Python console needs to be started as <code>winpty python</code> instead of just <code>python</code>).</li>
+<li><p>If you specify command-line options starting with a slash, POSIX-to-Windows path conversion will kick in converting e.g. "<code>/usr/bin/bash.exe</code>" to "<code>C:\Program Files\Git\usr\bin\bash.exe</code>". When that is not desired -- e.g. "<code>--upload-pack=/opt/git/bin/git-upload-pack</code>" or "<code>-L/regex/</code>" -- you need to set the environment variable <code>MSYS_NO_PATHCONV</code> temporarily, like so:</p>
+
+<blockquote>
+  <p><code>MSYS_NO_PATHCONV=1 git blame -L/pathconv/ msys2_path_conv.cc</code></p>
+</blockquote>
+
+<p>Alternatively, you can double the first slash to avoid POSIX-to-Windows path conversion, e.g. "<code>//usr/bin/bash.exe</code>".</p></li>
+<li>Windows drives are normally recognized within the POSIX path as <code>/c/path/to/dir/</code> where <code>/c/</code> (or appropriate drive letter) is equivalent to the <code>C:\</code> Windows prefix to the <code>\path\to\dir</code>. If this is not recognized, revert to the <code>C:\path\to\dir</code> Windows style.</li>
+<li>Git for Windows will not allow commits containing DOS-style truncated 8.3-format filenames ending with a tilde and digit, such as <code>mydocu~1.txt</code>. A workaround is to call <code>git config core.protectNTFS false</code>, which is not advised. Instead, add a rule to .gitignore to ignore the file(s), or rename the file(s).</li>
+<li>Many Windows programs (including the Windows Explorer) have problems with directory trees nested so deeply that the absolute path is longer than 260 characters. Therefore, Git for Windows refuses to check out such files by default. You can overrule this default by setting <code>core.longPaths</code>, e.g. <code>git clone -c core.longPaths=true ...</code>.</li>
+<li>Some commands are not yet supported on Windows and excluded from the installation.</li>
+<li>As Git for Windows is shipped without Python support, <code>git p4</code> (which is backed by a Python script) is not supported.</li>
+<li>The Quick Launch icon will only be installed for the user running setup (typically the Administrator). This is a technical restriction and will not change.</li>
+<li>Git command hints are designed for a POSIX shell, this can lead to issues when using them <strong>as is</strong> in non-POSIX shells like PowerShell, <a href="https://github.com/git-for-windows/git/issues/2785">as is the case in this ticket</a>.</li>
+<li>When pushing via the <code>git://</code> protocol, Git for Windows may hang indefinitely. The last console output in this case is typically <code>Writing objects: 100%</code>. As a workaround, disabling side-band via <code>git config sendpack.sideband false</code> should address this, at the cost of showing remote errors late (or not at all). No one is working on this; for more details, or to contribute a fix, see issue <a href="https://github.com/git-for-windows/git/issues/907">#907</a> (closed unless/until there is activity).</li>
+<li><p>Git for Windows executables linked to <code>msys-2.0.dll</code> are not compatible with Mandatory ASLR and may crash if system-wide Mandatory ASLR is enabled in Windows Exploit protection. A workaround is to disable ASLR for all executables in <code>C:\Program Files\Git\usr\bin</code>, run in administrator powershell (replace <code>$_.Name</code> with <code>$_</code> to use full path to executable instead of name):</p>
+
+<blockquote>
+  <p><code>Get-Item -Path "C:\Program Files\Git\usr\bin\*.exe" | %{ Set-ProcessMitigation -Name $_.Name -Disable ForceRelocateImages }</code></p>
+</blockquote>
+
+<p>Alternatively, you can disable Mandatory ASLR completely in Windows Exploit protection.</p></li>
+</ul>
+</body>
+</html>
