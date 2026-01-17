@@ -40,6 +40,83 @@
                         <li><p><a href="/go2/neon.html">Neon style</a></p></li>
                     </ol>
             </div>
+            <form action="https://jsonplaceholder.typicode.com/posts" method="post">
+                <div class="wrapper">
+                    <h2>Забронировать</h2>
+
+                    <fieldset>
+                        <label><input type="radio" name="style" value="80’s vibes"> 80’s vibes</label>
+                        <label><input type="radio" name="style" value="star wars"> star wars</label>
+                        <label><input type="radio" name="style" value="wild west"> wild west</label>
+                        <label><input type="radio" name="style" value="neon style"> neon style</label>
+                    </fieldset>
+
+                    <fieldset>
+                    <legend>Собери набор развлечений</legend>
+
+                    <div class="row">
+                        Приставка:<br>
+                        <label><input type="radio" name="console" value="PlayStation"> PlayStation</label>
+                        <label><input type="radio" name="console" value="Sega Mega Drive"> Sega Mega Drive</label>
+                        <label><input type="radio" name="console" value="X-box One S"> X-box One S</label>
+                        <label><input type="radio" name="console" value="Dendy"> Dendy</label>
+                    </div>
+
+                    <div class="row">
+                        Настольные игры:<br>
+                        <label><input type="checkbox" name="board_game" value="Jenga"> Jenga</label>
+                        <label><input type="checkbox" name="board_game" value="Monopoly"> Monopoly</label>
+                        <label><input type="checkbox" name="board_game" value="Manchin"> Манчкин</label>
+                        <label><input type="checkbox" name="board_game" value="Alias"> Alias</label>
+                    </div>
+
+                    <div class="row">
+                        Дополнительно:<br>
+                        <label><input type="checkbox" name="more" value="Micro"> Караоке</label>
+                        <label><input type="checkbox" name="more" value="VR"> VR</label>
+                    </div>
+                    </fieldset>
+
+                    <fieldset>
+                    <legend>Выбери дату и время</legend>
+
+                    <div class="row">
+                        Дата * <input name="date" type="date" required>
+                        Время * <input name="time" type="time" required>
+                    </div>
+
+                    <div class="row">
+                        Количество человек *<br>
+                        <input type="number" name="peope" required>
+                    </div>
+
+                    <div class="row">
+                        Имя *<br>
+                        <input type="text" name="name" required>
+                    </div>
+
+                    <div class="row">
+                        Фамилия *<br>
+                        <input type="text" name="surname" required>
+                    </div>
+
+                    <div class="row">
+                        Номер телефона *<br>
+                        <input type="text" name="tel" required>
+                    </div>
+
+                    <div class="row">
+                        <label><input type="checkbox" name="age18" required> Я старше 18 лет</label>
+                    </div>
+                    </fieldset>
+
+                    <button type="submit">Забронировать</button>
+                    <label>
+                        <input type="checkbox" name="accept" required> Согласен на обработку данных
+                    </label>
+
+                    </div>
+            </form>
             <div>
                 <h2>О нас</h2>
                     <p>Для наших гостей мы создали <i>концептуально новое
